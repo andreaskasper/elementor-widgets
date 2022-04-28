@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace andreaskasper\elementor\widget;
+namespace plugins\goo1\elementorwidgets\elementor\widget;
 
 class Jitsi extends \Elementor\Widget_Base {
 
