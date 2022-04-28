@@ -1,11 +1,11 @@
 {
     "name": "Elementor Essential Widgets",
-    "version": "0.1.114",
+    "version": "0.1.115",
     "download_url": "https:\/\/raw.githubusercontent.com\/andreaskasper\/elementor-widgets\/main\/dist\/goo1-elementor-widgets.zip",
     "homepage": "https:\/\/github.com\/andreaskasper\/",
     "requires": "3.5",
     "tested": "5.8.1",
-    "last_updated": "2022-04-28 23:25:31",
+    "last_updated": "2022-04-28 23:39:39",
     "upgrade_notice": "First release",
     "author": "Andreas Kasper",
     "author_homepage": "https:\/\/goo1.de\/",
