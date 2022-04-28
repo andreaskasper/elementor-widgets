@@ -11,14 +11,16 @@ class core {
                 'goo1eew',
                 [
                     'title' => esc_html__( 'Essentials', 'plugin-name' ),
-                    'icon' => 'fa fa-plug',
+                    'icon' => 'eicon-gallery-grid',
                 ]
             );
         });
 
         add_action( 'elementor/widgets/widgets_registered', function() {
-            \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Jitsi() );
+            \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Breadcrumbs() );
             \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Heading() );
+            \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Jitsi() );
+            
           });
     }
 }
