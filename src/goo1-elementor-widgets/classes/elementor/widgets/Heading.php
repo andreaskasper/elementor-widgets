@@ -9,7 +9,7 @@
 
 namespace plugins\goo1\elementorwidgets\elementor\widgets;
 
-class Jitsi extends \Elementor\Widget_Base {
+class Heading extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -22,7 +22,7 @@ class Jitsi extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'goo1-jitsi';
+		return 'goo1-heading';
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Jitsi extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Jitsi Meeting', 'plugin-name' );
+		return __( 'Headings', 'plugin-name' );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Jitsi extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'eicon-video-camera';
+		return 'eicon-heading';
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Jitsi extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return ['andreaskasper','goo1eew' ];
+		return ['andreaskasper', 'goo1eew'];
 	}
 
 	/**
@@ -87,32 +87,30 @@ class Jitsi extends \Elementor\Widget_Base {
 
 
 		$this->add_control(
-			'channel',
+			'title1',
 			[
-				'label' => __( 'Channel Name', 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::TEXT
-			]
-		);
-		
-		$this->add_control(
-			'password',
-			[
-				'label' => __( 'Channel Passwort', 'plugin-domain' ),
+				'label' => __( 'Title 1', 'plugin-domain' ),
 				'type' => \Elementor\Controls_Manager::TEXT
 			]
 		);
 
 		$this->add_control(
-			'domain_jitsi',
+			'title2',
 			[
-				'label' => __( 'Domain', 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => "meet.jit.si"
+				'label' => __( 'Title 2', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::TEXT
 			]
 		);
 
-		
 		$this->add_control(
+			'title3',
+			[
+				'label' => __( 'Title 3', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::TEXT
+			]
+		);
+		
+		/*$this->add_control(
 			'MOBILE_APP_PROMO',
 			[
 				'label' => __( 'Show Mobile App Promo', 'plugin-domain' ),
@@ -158,7 +156,7 @@ class Jitsi extends \Elementor\Widget_Base {
 				'return_value' => "yes",
 				'default' => 'no',
 			]
-		);
+		);*/
            
 
 		$this->end_controls_section();
@@ -176,55 +174,11 @@ class Jitsi extends \Elementor\Widget_Base {
 	 * @access protected
 	 */
     protected function render() {
-
-		$id = "jitsi".md5(microtime(true));
-
 		$settings = $this->get_settings_for_display();
 
-		$user = get_userdata(get_current_user_id());
-
-		$first_name = get_user_meta( get_current_user_id(), 'first_name', true );
-		$last_name = get_user_meta( get_current_user_id(), 'last_name', true );
-		$email = $user->user_email;
-
-
-        echo('<div id="'.$id.'_wrapper"><div style="position: absolute; width: 100%; height: 100%; left: 0; top:0;"><div id="'.$id.'" style="width: 100%; height: 100%;"></div></div></div>
-		<script src="https://'.$settings["domain_jitsi"].'/external_api.js"></script>
-		<script>
-		const options = {
-			roomName: "'.$settings["channel"].'",
-			width: "100%",
-			height: "100%",
-			userInfo: {
-				email: "'.$email.'",
-				displayName: "'.$first_name." ".$last_name.'"
-			},
-			interfaceConfigOverwrite: {
-				MOBILE_APP_PROMO:'.(($settings["MOBILE_APP_PROMO"] == "yes")?'true':'false').',
-				SHOW_CHROME_EXTENSION_BANNER:'.(($settings["SHOW_CHROME_EXTENSION_BANNER"] == "yes")?'true':'false').',
-				SHOW_JITSI_WATERMARK:'.(($settings["SHOW_JITSI_WATERMARK"] == "yes")?'true':'false').'
-				'.(($settings["buttons_dv"] == "yes")?',TOOLBAR_BUTTONS: [
-					"microphone", "camera", "closedcaptions", "fullscreen",
-					"fodeviceselection", "profile", "", "chat",
-					"etherpad", "settings", "raisehand",
-					"videoquality", "filmstrip", "invite", "tileview", "videobackgroundblur", "download", 
-					"e2ee"
-				  ]':'').'
-			},
-			parentNode: document.querySelector("#'.$id.'")
-		};
-
-		const api = new JitsiMeetExternalAPI( "'.$settings["domain_jitsi"].'", options);
-		api.on("passwordRequired", function () {
-    		api.executeCommand("password", "'.$settings["password"].'");
-		});
-		</script>');
-?>
-<style>
-.premeeting-screen .copy-meeting { display: none;}
-#<?=$id; ?>_wrapper { position: relative; width: 100%; height: 0; padding-bottom: 56.25%;}
-body[data-elementor-device-mode="mobile"] #<?=$id; ?>_wrapper { position: relative; width: 100%; height: 100vh; padding-bottom: 0; }
-</style>
-<?php
+		if (!empty($settings["title1"])) echo('<span>'.$settings["title1"].'</span>');
+		if (!empty($settings["title2"])) echo('<span>'.$settings["title2"].'</span>');
+		if (!empty($settings["title3"])) echo('<span>'.$settings["title3"].'</span>');
+		
 	}
 }
