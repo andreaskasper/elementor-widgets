@@ -36,7 +36,7 @@ class Breadcrumbs extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Headings', 'plugin-name' );
+		return __( 'Breadcrumbs', 'plugin-name' );
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Breadcrumbs extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$repeater->add_control(
 			'url_href',
 			[
 				'label' => esc_html__( 'Link', 'plugin-name' ),
@@ -111,7 +111,29 @@ class Breadcrumbs extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$repeater->add_control(
+			'icon',
+			[
+				'label' => esc_html__( 'Icon', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::ICON,
+				'include' => [
+					'fa fa-facebook',
+					'fa fa-flickr',
+					'fa fa-google-plus',
+					'fa fa-instagram',
+					'fa fa-linkedin',
+					'fa fa-pinterest',
+					'fa fa-reddit',
+					'fa fa-twitch',
+					'fa fa-twitter',
+					'fa fa-vimeo',
+					'fa fa-youtube',
+				],
+				'default' => 'fa fa-facebook',
+			]
+		);
+
+		$repeater->add_control(
 			'active',
 			[
 				'label' => __( 'active', 'plugin-domain' ),
@@ -139,8 +161,152 @@ class Breadcrumbs extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'icon_between',
+			[
+				'label' => esc_html__( 'Icon between', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::ICON,
+				'include' => [
+					'fa fa-facebook',
+					'fa fa-flickr',
+					'fa fa-google-plus',
+					'fa fa-instagram',
+					'fa fa-linkedin',
+					'fa fa-pinterest',
+					'fa fa-reddit',
+					'fa fa-twitch',
+					'fa fa-twitter',
+					'fa fa-vimeo',
+					'fa fa-youtube',
+				],
+				'default' => 'fa fa-facebook',
+			]
+		);
+
 		$this->end_controls_section();
 
+
+		$this->start_controls_section(
+			'style_section',
+			[
+				'label' => __( 'Style', 'plugin-name' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'content_typography',
+				'selector' => '{{WRAPPER}} ol li a, {{WRAPPER}} ol li',
+			]
+		);
+
+		$this->add_control(
+			'separator_color',
+			[
+				'label' => esc_html__( 'Separator Color', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .separator' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->start_controls_tabs(
+			'style_tabs'
+		);
+		
+		$this->start_controls_tab(
+			'style_normal_tab',
+			[
+				'label' => esc_html__( 'Normal', 'plugin-name' ),
+			]
+		);
+
+		$this->add_control(
+			'item_color_normal',
+			[
+				'label' => esc_html__( 'Item Color', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} a' => 'color: {{VALUE}}',
+				],
+			]
+		);
+		
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'style_hover_tab',
+			[
+				'label' => esc_html__( 'Hover', 'plugin-name' ),
+			]
+		);
+
+		$this->add_control(
+			'item_color_hover',
+			[
+				'label' => esc_html__( 'Item Color', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} a:hover' => 'color: {{VALUE}}',
+				],
+			]
+		);
+		
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'style_active_tab',
+			[
+				'label' => esc_html__( 'Active', 'plugin-name' ),
+			]
+		);
+
+		$this->add_control(
+			'item_color_active',
+			[
+				'label' => esc_html__( 'Item Color', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} li.active a' => 'color: {{VALUE}}',
+				],
+			]
+		);
+		
+		$this->end_controls_tab();
+		
+		$this->end_controls_tabs();
+
+		$this->add_control(
+			'separator',
+			[
+				'label' => esc_html__( 'Separator Type', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'none', 'plugin-name' ),
+					'>' => esc_html__( '>', 'plugin-name' ),
+					'/' => esc_html__( '/', 'plugin-name' ),
+					'»' => esc_html__( '»', 'plugin-name' ),
+					'icon' => esc_html__( 'Icon', 'plugin-name' )
+				],
+			]
+		);
+
+		$this->add_control(
+			'icon_separator',
+			[
+				'label' => esc_html__( "Separator Icon", 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::ICONS,
+				'condition' => [
+					'separator' => 'icon'
+				]
+			]
+		);
+
+		$this->end_controls_section();
 		
 
     }
@@ -156,8 +322,26 @@ class Breadcrumbs extends \Elementor\Widget_Base {
     protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		print_r($settings);
-
-	
+		echo('<ol itemscope itemtype="https://schema.org/BreadcrumbList" style="padding: 0; margin: 0; list-style:none;">');
+		$i = 0;
+		foreach ($settings["list"] as $row) {
+			$i++;
+			echo('<li class="'.(($row["active"] == "yes")?"active":"").'" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="display: inline;">');
+			echo('<a href="'.$row["url_href"].'" itemprop="item" href="https://example.com/books">');
+			echo('<span itemprop="name">'.$row["title"].'</span></a>');
+			if ($i < count($settings["list"])) {
+				switch ($settings["separator"]) {
+					case ">": echo(' <span class="separator">&gt;</span> '); break;
+					case "/": echo(' <span class="separator">/</span> '); break;
+					case "»": echo(' <span class="separator">»</span> '); break;
+					case "icon": 
+						echo('<i class="separator '.$settings["icon_separator"]["value"].'"></i>');
+						break;
+				}
+			}
+			echo('<meta itemprop="position" content="'.$i.'" />');
+			echo('</li> ');
+		}
+		echo('</ol>');
 	}
 }
