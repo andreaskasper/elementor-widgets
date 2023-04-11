@@ -20,6 +20,8 @@ class core {
             \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Breadcrumbs() );
             \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Heading() );
             \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Jitsi() );
+            \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\Calendly() );
+            \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \plugins\goo1\elementorwidgets\elementor\widgets\ToggleButton() );
             
           });
     }
