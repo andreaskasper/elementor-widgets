@@ -100,7 +100,8 @@ function initeditor($element) {
 
         $repeater = new \Elementor\Repeater();
 
-		$rows = $wpdb->get_results( $wpdb->prepare('SELECT ID, post_title FROM '.$wpdb->posts.' WHERE post_type IN ("product","product_variation")  ORDER BY post_title ASC',array()), ARRAY_A );
+		//$rows = $wpdb->get_results( $wpdb->prepare('SELECT ID, post_title FROM '.$wpdb->posts.' WHERE post_type IN ("product","product_variation")  ORDER BY post_title ASC',array()), ARRAY_A );
+        $rows = $wpdb->get_results( 'SELECT ID, post_title FROM '.$wpdb->posts.' WHERE post_type IN ("product","product_variation")  ORDER BY post_title ASC',array(), ARRAY_A );
 
 		$w = array();
 		foreach($rows as $row) {
@@ -185,7 +186,8 @@ function initeditor($element) {
 		);
 
         
-        $rows = $wpdb->get_results( $wpdb->prepare('SELECT ID, post_title FROM '.$wpdb->posts.' WHERE post_type IN ("elementor_library")  ORDER BY post_title ASC',array()), ARRAY_A );
+        //$rows = $wpdb->get_results( $wpdb->prepare('SELECT ID, post_title FROM '.$wpdb->posts.' WHERE post_type IN ("elementor_library")  ORDER BY post_title ASC',array()), ARRAY_A );
+        $rows = $wpdb->get_results( 'SELECT ID, post_title FROM '.$wpdb->posts.' WHERE post_type IN ("elementor_library")  ORDER BY post_title ASC',array(), ARRAY_A );
 
 		$rows_templates = array();
 		foreach($rows as $row) {
